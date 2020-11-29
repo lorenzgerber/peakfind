@@ -17,6 +17,10 @@ composed_df <- function( chromatogram, sgolay_order = NULL, sgolay_length = 3 ){
   return (composed )
 }
 
+#' stepper
+#'
+#' currently the actual peak finder function
+#' @export
 stepper <- function( chromatogram, min_diff, sgolay_order = NULL, sgolay_length = 3){
   max_diff_index <- NULL
   max_diff_value <-  NULL
