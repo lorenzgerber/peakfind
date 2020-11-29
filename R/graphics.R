@@ -17,7 +17,7 @@ plot_peaks <- function(chromatogram, min_diff, sgolay_order = NULL, sgolay_lengt
   fig <- plotly::plot_ly(data = composed, x = ~scan, y = ~tic, type = 'scatter', mode = 'lines')
   fig <- fig %>% plotly::add_trace( y = ~first, mode = 'lines')
   fig <- fig %>% plotly::add_trace( y = ~second, mode = 'lines')
-  fig <- fig %>% plotly::add_trace( x = peaks, y = composed[['tic']][peaks], type = 'scatter', mode = 'markers' )
+  fig <- fig %>% plotly::add_trace( x = match(peaks, rownames(chromatogram)), y = composed[['tic']][match(peaks, rownames(chromatogram))], type = 'scatter', mode = 'markers' )
 
   return ( fig )
 

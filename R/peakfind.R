@@ -38,7 +38,8 @@ stepper <- function( chromatogram, min_diff, sgolay_order = NULL, sgolay_length 
       max_diff_index <- NULL
     }
   }
-  peak_vector <- peak_vector
+
+  peak_vector <- as.numeric(rownames(chromatogram)[peak_vector])
 
   return ( peak_vector)
 
