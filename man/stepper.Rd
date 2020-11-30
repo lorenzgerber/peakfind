@@ -4,7 +4,7 @@
 \alias{stepper}
 \title{stepper}
 \usage{
-stepper(chromatogram, min_diff, sgolay_order = NULL, sgolay_length = 3)
+stepper(tic, min_diff)
 }
 \description{
 currently the actual peak finder function

@@ -1,5 +1,5 @@
-plot_derivs <- function(chromatogram, sgolay_order = NULL, sgolay_length = 3){
-  compose <- composed_df(chromatogram, sgolay_order, sgolay_length)
+plot_derivs <- function( tic ){
+  compose <- composed_df( tic )
   fig <- plot_ly(data = compose, x = ~scan, y = ~tic, type = 'scatter', mode = 'lines')
   fig <- fig %>% plotly::add_trace( y = ~first, mode = 'lines')
   fig <- fig %>% plotly::add_trace( y = ~second, mode = 'lines')
@@ -10,14 +10,14 @@ plot_derivs <- function(chromatogram, sgolay_order = NULL, sgolay_length = 3){
 #'
 #' function to run and visualize peakfind
 #' @export
-plot_peaks <- function(chromatogram, min_diff, sgolay_order = NULL, sgolay_length = 3){
+plot_peaks <- function( tic , min_diff ){
 
-  peaks <- stepper(chromatogram, min_diff, sgolay_order, sgolay_length)
-  composed <- composed_df(chromatogram, sgolay_order, sgolay_length)
+  peaks <- stepper( tic , min_diff )
+  composed <- composed_df( tic )
   fig <- plotly::plot_ly(data = composed, x = ~scan, y = ~tic, type = 'scatter', mode = 'lines')
   fig <- fig %>% plotly::add_trace( y = ~first, mode = 'lines')
   fig <- fig %>% plotly::add_trace( y = ~second, mode = 'lines')
-  fig <- fig %>% plotly::add_trace( x = match(peaks, rownames(chromatogram)), y = composed[['tic']][match(peaks, rownames(chromatogram))], type = 'scatter', mode = 'markers' )
+  fig <- fig %>% plotly::add_trace( x = match(peaks, names(tic)), y = composed[['tic']][match(peaks, names(tic))], type = 'scatter', mode = 'markers' )
 
   return ( fig )
 

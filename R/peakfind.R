@@ -8,11 +8,10 @@ second_derivative <- function(tic){
   return ( second_derivative )
 }
 
-composed_df <- function( chromatogram, sgolay_order = NULL, sgolay_length = 3 ){
-  tic <- chromatogram::calculate_tic( chromatogram, sgolay_order, sgolay_length )
+composed_df <- function( tic ){
   first_deriv <- first_derivative( tic )
   second_deriv <- second_derivative( tic )
-  stop_index <- dim(chromatogram)[1]-2
+  stop_index <- length(tic)-2
   composed <- data.frame('tic' = tic[1:stop_index], 'first' = first_deriv[1:stop_index], 'second' = second_deriv, 'scan' = 1:stop_index)
   return (composed )
 }
@@ -21,12 +20,11 @@ composed_df <- function( chromatogram, sgolay_order = NULL, sgolay_length = 3 ){
 #'
 #' currently the actual peak finder function
 #' @export
-stepper <- function( chromatogram, min_diff, sgolay_order = NULL, sgolay_length = 3){
+stepper <- function( tic, min_diff ){
   max_diff_index <- NULL
-  max_diff_value <-  NULL
   peak_vector <- NULL
 
-  composed <- composed_df(chromatogram, sgolay_order = NULL, sgolay_length = 3)
+  composed <- composed_df( tic )
 
   for(i in 1:length(composed[['scan']])){
     if(composed[['first']][i] > min_diff){
@@ -39,7 +37,7 @@ stepper <- function( chromatogram, min_diff, sgolay_order = NULL, sgolay_length 
     }
   }
 
-  peak_vector <- as.numeric(rownames(chromatogram)[peak_vector])
+  peak_vector <- as.numeric(names(tic)[peak_vector])
 
   return ( peak_vector)
 

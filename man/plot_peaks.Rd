@@ -4,7 +4,7 @@
 \alias{plot_peaks}
 \title{plot_peaks}
 \usage{
-plot_peaks(chromatogram, min_diff, sgolay_order = NULL, sgolay_length = 3)
+plot_peaks(tic, min_diff)
 }
 \description{
 function to run and visualize peakfind
